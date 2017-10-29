@@ -3,7 +3,7 @@
 
 typedef short fix16;
 
-fix16 float32_to_fix16(float f, int int_len) {
+fix16 new_fix16(float f, int int_len) {
 	short ret = 0;
 	ieee754_float standard;
 	standard.f = f;
@@ -82,6 +82,11 @@ void printd_fix16(unsigned short num, int int_len) {
 
 }
 
+fix16 mul_fix16(fix16 a, fix16 b, int int_len) {
+	int c = a * b;
+	return c >> 15 - int_len;
+}
+
 int main() {
 	ieee754_float a;
 
@@ -99,13 +104,13 @@ int main() {
 	printb(a.ieee.mantissa, 23);
 	puts("");
 
-	fix16 f = float32_to_fix16(a.f, 2);
+	fix16 f = new_fix16(a.f, 3);
 	puts("\nconverted to fix16");
-	printb_fix16(f, 2);
+	printb_fix16(f, 3);
 	printf(" (");
 	printb(f, 16);
 	puts(")");
-	printd_fix16(f, 2);
+	printd_fix16(f, 3);
 	puts("");
 	
 	return 0;
