@@ -87,6 +87,11 @@ fix16 mul_fix16(fix16 a, fix16 b, int int_len) {
 	return c >> 15 - int_len;
 }
 
+fix16 div_fix16(fix16 a, fix16 b, int int_len) {
+	int c = a << 15 - int_len;
+	return c / b;
+}
+
 int main() {
 	ieee754_float a;
 
