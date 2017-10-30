@@ -103,15 +103,15 @@ int main() {
 	scanf("%f", &a.f);
 	
 	printf("sign: ");
-	print_binary(a.ieee.negative, 1);
+	print_binary(a.ieee.negative, SIGN);
 	puts("");
 
 	printf("exponent: ");
-	print_binary(a.ieee.exponent, 8);
+	print_binary(a.ieee.exponent, EXPONENT);
 	puts("");
 
 	printf("mantissa: ");
-	print_binary(a.ieee.mantissa, 23);
+	print_binary(a.ieee.mantissa, MANTISSA);
 	puts("");
 
 	fix16 f16 = fix(a.f, 16, 3);

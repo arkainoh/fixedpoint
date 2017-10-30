@@ -7,15 +7,15 @@ int main() {
 	cin >> a.f;
 
 	cout << "sign: ";
-	print_binary(a.ieee.negative, 1);
+	print_binary(a.ieee.negative, SIGN);
 	cout << endl;
 
 	cout << "exponent: ";
-	print_binary(a.ieee.exponent, 8);
+	print_binary(a.ieee.exponent, EXPONENT);
 	cout << endl;
 
 	cout << "mantissa: ";
-	print_binary(a.ieee.mantissa, 23);
+	print_binary(a.ieee.mantissa, MANTISSA);
 	cout << endl;
 
 	FixedPoint<fix16> f16(16, 3);
