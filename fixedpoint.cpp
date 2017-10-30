@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <ieee754.h>
+#define SIGN 1
+#define EXPONENT 8
+#define MANTISSA 23
+#define EXP_BIAS 127
 
 typedef short fix16;
 
@@ -9,15 +13,15 @@ fix16 new_fix16(float f, int int_len) {
 	standard.f = f;
 
 	unsigned int mantissa = standard.ieee.mantissa;
-	int exp = standard.ieee.exponent - 127;
+	int exp = standard.ieee.exponent - EXP_BIAS;
 	int frac_len = 15 - int_len;
 	unsigned int integer, fraction;
 
 	if(exp > 0) {
-		integer = mantissa >> 23 - exp;
+		integer = mantissa >> MANTISSA - exp;
 		integer = integer | (1 << exp);
 
-		fraction = mantissa << 9 + exp;
+		fraction = mantissa << SIGN + EXPONENT + exp;
 		fraction = fraction >> 32 - frac_len;
 		integer = integer << frac_len;
 
@@ -25,8 +29,8 @@ fix16 new_fix16(float f, int int_len) {
 
 	} else {
 		integer = 0;
-		fraction = mantissa | (1 << 23);
-		fraction = fraction >> 23 - frac_len - exp;
+		fraction = mantissa | (1 << MANTISSA);
+		fraction = fraction >> MANTISSA - frac_len - exp;
 	}
 
 	ret = ret | fraction;
