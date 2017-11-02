@@ -87,12 +87,12 @@ void printd_fix(unsigned int num, int wl, int iwl) {
 
 }
 
-fix16 mul_fix(int a, int b, int wl, int iwl) {
+int mul_fix(int a, int b, int wl, int iwl) {
 	int c = a * b;
 	return c >> wl - 1 - iwl;
 }
 
-fix16 div_fix(int a, int b, int wl, int iwl) {
+int div_fix(int a, int b, int wl, int iwl) {
 	int c = a << wl - 1 - iwl;
 	return c / b;
 }
