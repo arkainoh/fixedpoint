@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <ieee754.h>
-#define SIGN 1
-#define EXPONENT 8
-#define MANTISSA 23
-#define EXP_BIAS 127
-
-typedef short fix16;
-typedef char fix8;
+#include "fixedpoint.h"
 
 int fix(float f, int wl, int iwl) {
 	int ret = 0;
@@ -95,43 +87,5 @@ int mul_fix(int a, int b, int wl, int iwl) {
 int div_fix(int a, int b, int wl, int iwl) {
 	int c = a << wl - 1 - iwl;
 	return c / b;
-}
-
-int main() {
-	ieee754_float a;
-
-	scanf("%f", &a.f);
-	
-	printf("sign: ");
-	print_binary(a.ieee.negative, SIGN);
-	puts("");
-
-	printf("exponent: ");
-	print_binary(a.ieee.exponent, EXPONENT);
-	puts("");
-
-	printf("mantissa: ");
-	print_binary(a.ieee.mantissa, MANTISSA);
-	puts("");
-
-	fix16 f16 = fix(a.f, 16, 3);
-	puts("\nconverted to fix16");
-	printb_fix(f16, 16, 3);
-	printf(" (");
-	print_binary(f16, 16);
-	puts(")");
-	printd_fix(f16, 16, 3);
-	puts("");
-	
-	fix8 f8 = fix(a.f, 8, 3);
-	puts("\nconverted to fix8");
-	printb_fix(f8, 8, 3);
-	printf(" (");
-	print_binary(f8, 8);
-	puts(")");
-	printd_fix(f8, 8, 3);
-	puts("");
-
-	return 0;
 }
 
