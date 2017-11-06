@@ -1,3 +1,6 @@
+#ifndef FIXEDPOINT_H
+#define FIXEDPOINT_H
+
 #include <iostream>
 #include <ieee754.h>
 #define SIGN 1
@@ -136,3 +139,4 @@ void print_binary(int num, int len) {
 	}
 }
 
+#endif
