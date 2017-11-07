@@ -4,26 +4,24 @@ int fix(float f, int wl, int iwl) {
 	ieee754_float standard;
 	standard.f = f;
 
-	int mantissa = standard.ieee.mantissa | (1 << MANTISSA);
+	int ret = standard.ieee.mantissa | (1 << MANTISSA);
 	int exp = standard.ieee.exponent - EXP_BIAS;
 	int fwl = wl - iwl - 1;
 	int fraction = MANTISSA - exp;
 	int filter = (1 << wl) - 1;
 
 	if(fraction > INT_SIZE) {
-		mantissa = mantissa >> fraction - INT_SIZE;
+		ret = ret >> fraction - INT_SIZE;
 		fraction = INT_SIZE;
 	}
 	
-	mantissa = mantissa >> fraction - fwl;
+	ret = ret >> fraction - fwl;
 
 	if(standard.ieee.negative) {
-		mantissa = ~mantissa + 1;
+		ret = ~ret + 1;
 	}
 	
-	mantissa = mantissa & filter;
-
-	return mantissa;
+	return ret & filter;
 }
 
 void print_binary(int num, int len) {
