@@ -8,6 +8,7 @@
 #define EXPONENT 8
 #define MANTISSA 23
 #define EXP_BIAS 127
+#define INT_SIZE 32
 
 typedef short fix16;
 typedef char fix8;

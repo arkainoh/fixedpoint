@@ -1,38 +1,29 @@
 #include "fixedpoint.h"
 
 int fix(float f, int wl, int iwl) {
-	int ret = 0;
 	ieee754_float standard;
 	standard.f = f;
 
-	unsigned int mantissa = standard.ieee.mantissa;
+	int mantissa = standard.ieee.mantissa | (1 << MANTISSA);
 	int exp = standard.ieee.exponent - EXP_BIAS;
-	int fwl = wl - 1 - iwl;
-	unsigned int integer, fraction;
+	int fwl = wl - iwl - 1;
+	int fraction = MANTISSA - exp;
+	int filter = (1 << wl) - 1;
 
-	if(exp > 0) {
-		integer = mantissa >> MANTISSA - exp;
-		integer = integer | (1 << exp);
-
-		fraction = mantissa << SIGN + EXPONENT + exp;
-		fraction = fraction >> sizeof(unsigned int) * 8 - fwl;
-		integer = integer << fwl;
-
-		ret = ret | integer;
-
-	} else {
-		integer = 0;
-		fraction = mantissa | (1 << MANTISSA);
-		fraction = fraction >> MANTISSA - fwl - exp;
+	if(fraction > INT_SIZE) {
+		mantissa = mantissa >> fraction - INT_SIZE;
+		fraction = INT_SIZE;
 	}
-
-	ret = ret | fraction;
+	
+	mantissa = mantissa >> fraction - fwl;
 
 	if(standard.ieee.negative) {
-		ret = ~ret + 1;
+		mantissa = ~mantissa + 1;
 	}
+	
+	mantissa = mantissa & filter;
 
-	return ret;
+	return mantissa;
 }
 
 void print_binary(int num, int len) {
@@ -62,7 +53,7 @@ void printd_fix(unsigned int num, int wl, int iwl) {
 		printf("-");
 		num = ~(num - 1);
 	}
-
+	
 	int integer = num >> fwl;
 
 	float fraction = 0.0;
