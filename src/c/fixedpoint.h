@@ -1,5 +1,5 @@
 #ifndef FIXEDPOINT_H
-#define FIXEDPOINT
+#define FIXEDPOINT_H
 
 #include <ieee754.h>
 #include <stdio.h>
