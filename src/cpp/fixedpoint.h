@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <ieee754.h>
+#include <math.h>
 #define SIGN 1
 #define EXPONENT 8
 #define MANTISSA 23
@@ -137,6 +138,26 @@ void print_binary(int num, int len) {
 
 		mask = mask >> 1;
 	}
+}
+
+int optiwl(float floats[], int len) {
+	
+	int max = 0;
+	int iwl = 0;
+
+	for(int i = 0; i < len; i++) {
+		int n;
+		
+		n = floats[i];
+
+		if(n < 0) n *= (-1);
+
+		if(max < n) max = n;
+	}
+
+	if(max) iwl = log2(max) + 1;
+
+	return iwl;
 }
 
 #endif
