@@ -1,10 +1,15 @@
 #include <iostream>
-#include "fixedpoint.h"
+#include "../fixedpoint.h"
 
 int main() {
 	ieee754_float a;
+	int iwl;
 
+	cout << "float: ";
 	cin >> a.f;
+	
+	cout << "IWL: ";
+	cin >> iwl;
 
 	cout << "sign: ";
 	print_binary(a.ieee.negative, SIGN);
@@ -17,8 +22,8 @@ int main() {
 	cout << "mantissa: ";
 	print_binary(a.ieee.mantissa, MANTISSA);
 	cout << endl;
-
-	FixedPoint<fix16> f16(16, 3);
+	
+	FixedPoint<fix16> f16(16, iwl);
 	f16.fix(a.f);
 	cout << endl << "converted to fix16" << endl;
 	f16.printb();
@@ -30,7 +35,7 @@ int main() {
 	f16.printd();
 	cout << endl;
 
-	FixedPoint<fix8> f8(8, 3);
+	FixedPoint<fix8> f8(8, iwl);
 	f8.fix(a.f);
 	cout << endl << "converted to fix8" << endl;
 	f8.printb();
