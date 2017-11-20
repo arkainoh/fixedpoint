@@ -81,12 +81,14 @@ class FixedPoint {
 	
 	void printd() {
 		int num = this->f;
-		if(num >> this->wl - 1) {
+		int sign_filter = 1 << this->wl - 1;
+		int int_filter = (1 << this->iwl) - 1;
+		if(num & sign_filter) {
 			cout << "-";
 			num = ~(num - 1);
 		}
 
-		int integer = num >> this->fwl;
+		int integer = num >> (this->fwl) & int_filter;
 		float fraction = 0.0;
 		float div = 0.5;
 		unsigned int mask = 1 << this->fwl - 1;
