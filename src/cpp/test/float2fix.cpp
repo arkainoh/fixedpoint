@@ -3,14 +3,18 @@
 
 int main() {
 	ieee754_float a;
-	int iwl;
+	int wl, iwl;
 
 	cout << "float: ";
 	cin >> a.f;
 	
+	cout << "WL: ";
+	cin >> wl;
+
 	cout << "IWL: ";
 	cin >> iwl;
 
+	cout << endl << "<float info>" << endl;
 	cout << "sign: ";
 	print_binary(a.ieee.negative, SIGN);
 	cout << endl;
@@ -23,29 +27,17 @@ int main() {
 	print_binary(a.ieee.mantissa, MANTISSA);
 	cout << endl;
 	
-	FixedPoint<fix16> f16(16, iwl);
-	f16.fix(a.f);
-	cout << endl << "converted to fix16" << endl;
-	f16.printb();
-	
+	cout << endl << "<result>" << endl;
+	FixedPoint<int> ret(wl, iwl);
+	ret.fix(a.f);
+	cout << "binary: ";
+	ret.printb();
 	cout << " (";
-	print_binary(f16.f, 16);
+	print_binary(ret.f, wl);
 	cout << ")" << endl;
-
-	f16.printd();
+	ret.printd();
 	cout << endl;
 
-	FixedPoint<fix8> f8(8, iwl);
-	f8.fix(a.f);
-	cout << endl << "converted to fix8" << endl;
-	f8.printb();
-
-	cout << " (";
-	print_binary(f8.f, 8);
-	cout << ")" << endl;
-
-	f8.printd();
-	cout << endl;
 	return 0;
 }
 
