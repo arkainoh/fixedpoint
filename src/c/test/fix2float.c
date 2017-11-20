@@ -2,11 +2,12 @@
 #include "../fixedpoint.h"
 
 int main() {
+	int f;
 	ieee754_float a;
 	int wl, iwl;
 
-	printf("float: ");
-	scanf("%f", &a.f);
+	printf("fix: ");
+	scanf("%d", &f);
 	
 	printf("WL: ");
 	scanf("%d", &wl);
@@ -14,7 +15,19 @@ int main() {
 	printf("IWL: ");
 	scanf("%d", &iwl);
 
-	printf("\n<float info>\n");
+	printf("\n<fix info>\n");
+	printf("binary: ");
+	printb_fix(f, wl, iwl);
+	printf(" (");
+	print_binary(f, wl);
+	printf(")\n");
+	printf("decimal: ");
+	printd_fix(f, wl, iwl);
+	printf(" (%d)\n", f);
+	
+	printf("\n<result>\n");
+	a.f = fix2float(f, wl, iwl);
+	printf("float: %f\n", a.f);
 	printf("sign: ");
 	print_binary(a.ieee.negative, SIGN);
 	printf("\n");
@@ -26,17 +39,6 @@ int main() {
 	printf("mantissa: ");
 	print_binary(a.ieee.mantissa, MANTISSA);
 	printf("\n");
-	
-	printf("\n<result>\n");
-	int ret = float2fix(a.f, wl, iwl);
-	printf("binary: ");
-	printb_fix(ret, wl, iwl);
-	printf(" (");
-	print_binary(ret, wl);
-	printf(")\n");
-	printf("decimal: ");
-	printd_fix(ret, wl, iwl);
-	printf(" (%d)\n", ret);
 
 	return 0;
 }
