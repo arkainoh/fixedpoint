@@ -35,8 +35,9 @@ int main() {
 	cout << " (";
 	print_binary(ret.f, wl);
 	cout << ")" << endl;
+	cout << "decimal: ";
 	ret.printd();
-	cout << endl;
+	cout << " (" << ret.f << ")" << endl;
 
 	return 0;
 }
