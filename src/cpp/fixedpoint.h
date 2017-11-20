@@ -101,6 +101,26 @@ class FixedPoint {
 		}
 		cout << (integer + fraction);
 	}
+	
+	float get_float() {
+		int num = this->f;
+		int div = 1 << this->fwl;
+		int sign_filter = 1 << this->wl - 1;
+		bool neg = false;
+		int filter = (1 << this->wl) - 1;
+
+		if(num & sign_filter) {
+			num = ~num + 1;
+			neg = true;
+		}
+	
+		float ret = ((float) (num & filter)) / div;
+	
+		if(neg) ret *= (-1);
+	
+		return ret;
+
+	}
 
 	FixedPoint<T> operator+(FixedPoint<T> f) {
 		FixedPoint<T> ret(this->wl, this->iwl);
